@@ -32,8 +32,7 @@ namespace SeApiClientService.Controllers
         [HttpGet]
         public async Task<List<Repository>> Get()
         {
-            // following line of code coud be written in a sperate block of code/file
-
+            // following line of code could be written in a separate block of code/file
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
@@ -42,25 +41,24 @@ namespace SeApiClientService.Controllers
             var gitQueryResult = (
                 "https://api.github.com/orgs/dotnet/repos?result=language:C#&sort=stars&order=desc&page=1&par_page=5");
 
-            //could check the result status if its a bad request or not found
+            //could check the result status if its a bad or not found
             var streamTask = client.GetStreamAsync(gitQueryResult);
             var repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(await streamTask);
 
-            // somehow querystring returning more than 5  (TODO:)
+           // query string returning more than 5(TODO:take a look at later )
            return repositories.Count() > 5 ? repositories.Take(5).ToList() : repositories;
             
         }
 
 
         /// <summary>
-        ///  pass your choice of language through URI
+        ///  input param type of language
         /// </summary>
         /// <param name="_language"></param>
         /// <returns></returns>
         [HttpGet("{language}")]
         public async Task<List<Repository>>Get(string _language)
         {         
-            // following line of code coud be written in a sperate block of code/file
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
@@ -70,7 +68,6 @@ namespace SeApiClientService.Controllers
             var gitQueryResult = (
                 "https://api.github.com/orgs/dotnet/repos?result=language:_language&sort=stars&order=desc&page=1&par_page=5"); 
 
-            //could check the result status if its a bad request or not found
             var streamTask = client.GetStreamAsync(gitQueryResult);
             var repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(await streamTask);
 
