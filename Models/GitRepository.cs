@@ -7,16 +7,16 @@ using System.Globalization;
 
 namespace SeApiClientService.Models
 {
-    public class Repository
+    public class GitRepository
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
         [JsonPropertyName("html_url")]
-        public Uri GitHubHomeUrl { get; set; }
+        public Uri Url { get; set; }
 
         [JsonPropertyName("homepage")]
-        public Uri Homepage { get; set; }
+        public Uri Page { get; set; }
 
         [JsonPropertyName("watchers")]
         public int Watchers { get; set; }
